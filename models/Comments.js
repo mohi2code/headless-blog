@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     postId: {
       type: DataTypes.UUID,
-      allowNull: false
-    },
-    parent: {
-      type: DataTypes.UUID,
     },
     content: {
       type: DataTypes.TEXT

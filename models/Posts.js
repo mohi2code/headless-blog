@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     summary: {
       type: DataTypes.TEXT
     },
+    category: {
+      type: DataTypes.STRING,
+    },
     published: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

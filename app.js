@@ -17,7 +17,7 @@ app.use('/api', router.api);
 
 
 // connecting the database and fire up the server ------------------------------
-sequelize.sync({force:true})
+sequelize.sync()
 .then(async () => {
 
   console.log('Connection Has been made to the db');

@@ -8,7 +8,12 @@ module.exports = (models) => {
 
       // query posts
       let posts = await models.Posts.findAll(
-        { where: { published: true }, limit, order: [ [ 'createdAt', 'DESC' ]] }
+        {
+          where: { published: true },
+          limit,
+          order: [[ 'createdAt', 'DESC' ]],
+          include: [ { model: models.Comments, include: [ { model: models.Comments, as: 'replies' } ] } ]
+        }
       );
 
       // verify that there is posts
@@ -53,7 +58,7 @@ module.exports = (models) => {
     if (req.isAuthenticated && req.isAuthorized) {
 
       // extracting keys from req body
-      let {title, content, summary, published} = req.body;
+      let {title, content, summary, category, published} = req.body;
       let slug, publishedAt = undefined;
 
       // verify title and content are not empty
@@ -76,6 +81,7 @@ module.exports = (models) => {
               title,
               content,
               summary,
+              category,
               published,
               publishedAt
             }

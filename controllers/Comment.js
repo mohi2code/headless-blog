@@ -8,7 +8,7 @@ module.exports = (models) => {
 
       // query comment
       let comment = await models.Comments.findAll(
-        { where: { id } }
+        { where: { id }, include:[models.Comments] }
       );
 
       // verify that there is comment
@@ -61,16 +61,17 @@ module.exports = (models) => {
       try {
 
         // verify that a post exists with postID
-        let post_db = await models.Posts.findOne({ where: { id: postId } });
-        if (!post_db)
-          throw new Error('No Post Exists with postId ID');
+        if (postId) {
+          let post_db = await models.Posts.findOne({ where: { id: postId } });
+          if (!post_db)
+            throw new Error('No Post Exists with postId ID');
+        }
 
         // verify the parent comment if it exists
         if (parent) {
-
           let parent_db = await models.Comments.findOne({ where: { id: parent } });
           if (!parent_db)
-            throw new Error('No Parent Comment Exists with parent ID');
+            throw new Error('No Parent Comment Exists with (parent) ID');
 
         }
 

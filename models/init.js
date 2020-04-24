@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Users = require('./Users')(sequelize, DataTypes);
   const Posts = require('./Posts')(sequelize, DataTypes);
   const Comments = require('./Comments')(sequelize, DataTypes);
+  const Categories = require('./Categories')(sequelize, DataTypes);
 
   // relationships
   Users.hasMany(Posts, {
@@ -20,14 +21,10 @@ module.exports = (sequelize, DataTypes) => {
   Posts.hasMany(Comments, {
     foreignKey: {
       name: 'postId',
-      allowNull: false
     }
   });
-  Comments.hasMany(Comments, {
-    foreignKey: {
-      name: 'parent'
-    }
-  });
+  Comments.hasMany(Comments, { as: 'replies' });
+  Categories.hasMany(Posts, { foreignKey: { name: 'category' } });
 
-  return { Users, Posts, Comments };
+  return { Users, Posts, Comments, Categories };
 }
