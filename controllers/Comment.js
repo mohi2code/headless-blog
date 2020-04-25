@@ -56,7 +56,7 @@ module.exports = (models) => {
     // verify authorization and authentication
     if (req.isAuthenticated && req.isAuthorized) {
 
-      let { postId, parent, content } = req.body;
+      let { postId, parentId, content } = req.body;
 
       try {
 
@@ -67,17 +67,16 @@ module.exports = (models) => {
             throw new Error('No Post Exists with postId ID');
         }
 
-        // verify the parent comment if it exists
-        if (parent) {
-          let parent_db = await models.Comments.findOne({ where: { id: parent } });
+        // verify the parent comment if it exists and add the comment to it
+        if (parentId) {
+          let parent_db = await models.Comments.findOne({ where: { id: parentId } });
           if (!parent_db)
             throw new Error('No Parent Comment Exists with (parent) ID');
-
         }
 
         // insert comment in the database
         let comment = await models.Comments.create({
-          username: req.user.username, postId, parent, content
+          username: req.user.username, postId, parentId, content
         });
         res.send({ comment });
 

@@ -12,7 +12,7 @@ module.exports = (models) => {
           where: { published: true },
           limit,
           order: [[ 'createdAt', 'DESC' ]],
-          include: [ { model: models.Comments, include: [ { model: models.Comments, as: 'replies' } ] } ]
+          include: [ { model: models.Comments, include: [ { model: models.Comments } ] } ]
         }
       );
 

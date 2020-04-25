@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     postId: {
-      type: DataTypes.UUID,
+      type: DataTypes.UUID
+    },
+    parentId: {
+      type: DataTypes.UUID
     },
     content: {
       type: DataTypes.TEXT

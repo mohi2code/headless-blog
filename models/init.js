@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       name: 'postId',
     }
   });
-  Comments.hasMany(Comments, { as: 'replies' });
+  Comments.hasMany(Comments, { foreignKey: 'parentId' });
   Categories.hasMany(Posts, { foreignKey: { name: 'category' } });
 
   return { Users, Posts, Comments, Categories };
